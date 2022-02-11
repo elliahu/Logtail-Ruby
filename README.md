@@ -1,6 +1,9 @@
 # Logtail Ruby
 
 Collect logs directly from Ruby on Rails, Sinatra, and plain Ruby projects.
+**Supported language versions:**
+Ruby 2.7.0 or newer
+Rails 6.1.4.2 or newer
 
 # Installation and setup
 

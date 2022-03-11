@@ -7,7 +7,7 @@ Rails 6.1.4.2 or newer
 
 # Installation and setup
 
-You can install Logtail to your Ruby and Ruby on Rails projects using the Ruby Bundler.
+You can install Logtail to your Ruby projects using the Ruby Bundler.
 
 ### Ruby Bundler
 
@@ -40,22 +40,6 @@ require "logtail"
 # Create logger
 http_device = Logtail::LogDevices::HTTP.new("<SOURCE-TOKEN>")
 logger = Logtail::Logger.new(http_device)
-```
-
-## Ruby on Rails
-
-To install Logtail to your Ruby on Rails project, run the following command
-
-```bash
-bundle add logtail-rails
-```
-
-Alternatively, add `gem "logtail-rails"` to your `Gemfile` manually and then run `bundle install`
-
-Then run the following command to create the default config file:
-
-```bash
-bundle exec rake logtail:install source_token=YOUR_LOGTAIL_SOURCE_TOKEN
 ```
 
 Don’t forget to replace `YOUR_LOGTAIL_SOURCE_TOKEN` with your actual source token which you can find in the source settings. This will generate `config/initializers/logtail.rb`.
@@ -113,16 +97,6 @@ logger.debug("Logtail is ready!")
 
 # Send informative messages about interesting events using the info() method
 logger.info("I am using Logtail!")
-```
-
-### Ruby on Rails
-
-```ruby
-# Send debug logs messages using the debug() method
-Rails.logger.debug("Logtail is ready!")
-
-# Send informative messages about interesting events using the info() method
-Rails.logger.info("I am using Logtail!")
 ```
 
 This will create the following output:
@@ -247,32 +221,4 @@ This will generate the following JSON output:
         }
     }
 }
-```
-
-We will automatically add the information about the current user to each log if you're using Ruby on Rails and the Devise gem.
-
-If you're not using Devise or you want to log some additional information for every request your Rails app handles, you can easily implement this using Rails' `around_action` in your application controller. A simple implementation could look like this:
-
-```ruby
-class ApplicationController < ActionController::Base
-  around_action :with_logtail_context
-
-  private
-
-    def with_logtail_context
-      if user_signed_in?
-        Logtail.with_context(user_context) { yield }
-      else
-        yield
-      end
-    end
-    
-    def user_context
-      Logtail::Contexts::User.new(
-        id: current_user.id,
-        name: current_user.name,
-        email: current_user.email
-      )
-    end
-end
 ```

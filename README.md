@@ -4,6 +4,8 @@ Collect logs directly from Ruby on Rails, Sinatra, and plain Ruby projects.
 **Supported language versions:**
 Ruby 2.7.0 or newer
 
+You can learn more about using Logtail in Ruby projects in our [official docs](https://logtail-main.readme.io/docs/installing-logtail-2).
+
 # Installation and setup
 
 You can install Logtail to your Ruby projects using the Ruby Bundler.
